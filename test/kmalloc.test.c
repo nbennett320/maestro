@@ -9,9 +9,10 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "../include/kmalloc.h"
+#include "../src/kmalloc.c"
 
-#include "string.h"
 
 int main()
 {
@@ -69,6 +70,26 @@ int main()
 		sol *= fac[i];
 	}
 	printf("7! = %d\n",sol);
+
+	printf("Now finding 10!\n");
+	printf("filling the array: ");
+	fac = krealloc(fac, 11 * sizeof(*fac));
+	for(int i=1;i<11;i++){
+		fac[i] = i+1;
+		if(i < 11) printf("%d, ", i);
+		else printf("%d", i);
+	}
+	printf("\n");
+	printf("memory block free bit (*fac): %d\n", get_block_ptr(fac)->free);
+	printf("memory block debug value (*fac): %x\n", get_block_ptr(fac)->debug);
+
+	printf("10! = ");
+	for(int i=1;i<11;i++){
+		if(i < 10) printf("%d * ", fac[i-1]);
+		else printf("%d", fac[i-1]);
+	}
+	printf("\n");
+
 	kfree(fac);
 	printf("freed the array of numbers :)\n");
 	printf("memory block free bit (*fac): %d\n", get_block_ptr(fac)->free);

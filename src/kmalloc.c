@@ -34,7 +34,7 @@ void kfree(void *ptr)
   // memory that is available
   freeing_block_ptr->free = 1;
   freeing_block_ptr->debug = 0xBAADF00D;
-  freeing_block_ptr->prev = freeing_block_ptr->next;
+  freeing_block_ptr->prev->next = freeing_block_ptr->next;
 }
 
 /**
@@ -50,7 +50,6 @@ void *kmalloc(size_t size)
   // if someone is playing games... return null
   if(size <= 0) 
   {
-    kprintf("Tried to malloc a size of 0");
     return NULL;
   }
 
@@ -229,7 +228,6 @@ struct mem_block *request_memory(struct mem_block *was, size_t size)
   if(requested_mem == (void *) - 1) 
   {
     // failed to fetch more memory
-    kprintf("ERR: Failed to allocate more memory!");
     return NULL;
   }
 
