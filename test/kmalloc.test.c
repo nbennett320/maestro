@@ -176,7 +176,7 @@ void *krealloc(void *ptr, size_t size)
   // copy memory from old block to new block, then 
   // free the old block
   memcpy(new_block_ptr, ptr, my->size);
-  free(ptr);
+  kfree(ptr);
   return new_block_ptr;
 }
 
