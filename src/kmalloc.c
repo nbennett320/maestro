@@ -34,6 +34,8 @@ void kfree(void *ptr)
   // memory that is available
   freeing_block_ptr->free = 1;
   freeing_block_ptr->debug = 0xBAADF00D;
+
+  if(!freeing_block_ptr->prev) return;
   freeing_block_ptr->prev->next = freeing_block_ptr->next;
 }
 
