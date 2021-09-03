@@ -1,3 +1,13 @@
+/* maestro
+ * License: GPLv2
+ * See LICENSE.txt for full license text
+ * Author: Noah Bennett
+ *
+ * FILE: maestro.h
+ * DATE: Sept. 03, 2021
+ * DESCRIPTION: kmalloc header file
+ */
+
 #ifndef KMALLOC_H
 #define KMALLOC_H
 

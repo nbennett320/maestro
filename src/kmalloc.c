@@ -1,3 +1,13 @@
+/* maestro
+ * License: GPLv2
+ * See LICENSE.txt for full license text
+ * Author: Sam Kravitz
+ *
+ * FILE: maestro.h
+ * DATE: Sept. 03, 2021
+ * DESCRIPTION: kernel malloc
+ */
+
 #include <kmalloc.h>
 
 // start of heap begins at end of maestro image
