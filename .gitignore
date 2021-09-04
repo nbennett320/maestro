@@ -20,7 +20,7 @@
 iso/
 
 # hard disk image
-disk.img
+*disk.img*
 
 # filesystem mount
 mnt/
