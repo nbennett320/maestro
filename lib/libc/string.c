@@ -130,3 +130,41 @@ size_t strlen(const char *str)
 
 	return len;
 }
+
+// O(n) basic find for string, return index of char
+int charfind(char *str, char ch, int start) {
+	if(!str) return NULL;
+	if(strlen(str) > start) return NULL;
+	if(start < 0) return NULL;
+
+	for(int i = start; i < strlen(str); i++) {
+		if((str[i] != NULL) && (str[i] == ch)) {
+			return i;
+		}
+
+		if(str[i] == NULL) {
+			return NULL;
+		}
+	}
+	return -1;
+}
+
+// find substring with from, to
+char *substr(char *str, int from, int to) {
+	if(!str) return NULL;
+	if(from < 0) return NULL;
+	if(from > to) return NULL;
+	if(to < 0) return NULL;
+	if((to - from) <= 0) return NULL;
+
+	char *substr = kmalloc(sizeof(char) * (to - from));
+	u16 stri = 0;
+	for(int i = from; i < to; i++) {
+		if(!str[stri]) return NULL;
+
+		substr[stri] = str[i];
+		stri++;
+	}
+
+	return substr;
+}

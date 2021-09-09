@@ -21,5 +21,7 @@ char *strcat(char *, const char *);
 char *strncat(char *, const char *, size_t);
 char *strcpy(char *, const char *);
 size_t strlen(const char *);
+int charfind(char *, char, int);
+char *substr(char *, int, int);
 
 #endif // STRING_H
