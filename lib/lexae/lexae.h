@@ -24,5 +24,6 @@
 char **tokenize(char *, char);
 s16 count_tokens(char *, char);
 void print_tokens(char **, s16);
+void print_token(char *);
 
 #endif // LEXAE_H

@@ -23,9 +23,9 @@ void init()
 	idtinit();
 	intrinit();
 	clkinit();
+	istreaminit();
 	// mminit();
 	fatinit();
-	istreaminit();
 
 	// set keyboard interrupt handler
 	svect(IRQ1, kbdhandler);

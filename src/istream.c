@@ -20,6 +20,9 @@ s16 stream_index = 0;
 
 void istreaminit() {
   istream = kmalloc(sizeof(char) * CHAR_ISTREAM_SIZE);
+  for(int i = 0; i < CHAR_ISTREAM_SIZE; i++) {
+    istream[i] = NULL;
+  }
 }
 
 void istream_write(char ch_stream, u32 size) {
@@ -29,6 +32,9 @@ void istream_write(char ch_stream, u32 size) {
   kprintf("word is: ");
   print_stream();
   char **tokens = tokenize(istream, ' ');
+  s16 n_tokens = count_tokens(istream, ' ');
+  kprintf("ntokens: %d\n",n_tokens);
+  print_tokens(tokens, n_tokens);
 }
 
 char *istream_read() {

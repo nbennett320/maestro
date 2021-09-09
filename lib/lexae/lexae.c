@@ -23,32 +23,30 @@ char **tokenize(char *str, char delim) {
   }
 
   int from = 0, to = strlen(str);
-  for(int i = 0; str[i] != NULL; i++) {
-    for(int j = from; j < to; j++) {
-      if((str[j] != NULL) && (str[j] == delim)) {
-        kprintf("found a delimiter %c at %d\n", delim, from);
-        // handle set token
-        s16 len = to - from;
-        char *token = kmalloc(sizeof(char) * len);
-        for(int k = 0; k < len; k++) {
-          u16 n = from + k;
+  for(int i = from; i < to; i++) {
+    if((str[i] != NULL) && (str[i] == delim)) {
+      // kprintf("found a delimiter %c at %d\n", delim, i);
+      // handle set token
+      s16 len = i - from;
+      char *token = kmalloc(sizeof(char) * len);
+      for(int j = 0; j < len; j++) {
+        u16 n = from + j;
 
-          if(n > to) {
-            kprintf("n in token too big, breaking\n");
-            break;
-          }
-
-          if(str[n] == NULL) {
-            kprintf("str[n] was null, breaking\n");
-            return NULL;
-          }
-
-          token[k] = str[n];
+        if(n > to) {
+          kprintf("n in token too big, breaking\n");
+          break;
         }
-        token_arr[i] = token;
-        n_tokens++;
-        from = j;
+
+        if(str[n] == NULL) {
+          kprintf("str[n] was null, breaking\n");
+          return NULL;
+        }
+
+        token[j] = str[n];
       }
+      token_arr[n_tokens] = token;
+      n_tokens++;
+      from = i;
     }
   }
 
@@ -59,6 +57,11 @@ s16 count_tokens(char *str, char delim) {
   u16 n = 0;
   s16 count = 0;
 
+  if(!str) {
+    return NULL;
+  }
+
+  count++;
   while(str[n] != NULL) {
     if(str[n] == delim) count++;  
     n++;
@@ -73,9 +76,14 @@ void print_tokens(char **token_arr, s16 n_tokens) {
     char *token = token_arr[i];
     s16 len = strlen(token);
     kprintf("token %d: ",i);
-    for(int j = 0; j < len; j++) {
-      kprintf("%c", token[i+1]);
-    }
+    print_token(token);
     kprintf("\n");
+  }
+}
+
+void print_token(char *token) {
+  s16 len = strlen(token);
+  for(int i = 0; i < len; i++) {
+    kprintf("%c", token[i+1]);
   }
 }
