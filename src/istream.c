@@ -27,7 +27,6 @@ void istream_write(char ch_stream, u32 size) {
   istream[stream_index] = ch_stream;
   kprintf("word is: ");
   print_stream();
-  // memcpy(istream, (char *)ch_stream, size);
 }
 
 char *istream_read() {

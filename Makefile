@@ -2,8 +2,8 @@ CC = gcc
 AS = nasm
 CFLAGS = -std=gnu99 -march=i686 -m32 -fno-stack-protector -no-pie -ffreestanding -nostdlib -Wall -Wextra $(INCLUDE)
 LDFLAGS =
-INCLUDE = -I include -I lib/libc -I lib/msh/include
-VPATH = src/ lib/libc lib/msh/src
+INCLUDE = -I include -I lib/libc -I lib/msh/include -I lib/lexae
+VPATH = src/ lib/libc lib/msh/src lib/lexae
 
 # C sources
 C = \
@@ -39,6 +39,7 @@ LIB = \
 	stdlib.c \
 	string.c \
 	msh.c\
+	lexae.c\
 
 OBJ = $(addprefix bin/, $(C:.c=.o) $(ASM:.s=.o) $(LIB:.c=.o))
 
