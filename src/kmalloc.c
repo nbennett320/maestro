@@ -10,6 +10,8 @@
 
 #include <kmalloc.h>
 
+#include "string.h"
+
 // start of heap begins at end of maestro image
 extern u32 end;
 uptr heap = (uptr) &end;
@@ -128,7 +130,7 @@ void *kmalloca(size_t size)
 // kmalloc phys - fills the phys pointer with the physical address of the returned memory
 void *kmallocp(size_t nbytes, u32 *phys)
 {
-  u32 ptr = kmalloc(nbytes);
+  uptr ptr = (uptr) kmalloc(nbytes);
   if (phys)
     *phys = ptr;
 

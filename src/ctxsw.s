@@ -1,11 +1,12 @@
-;  maestro
-;  License: GPLv2
-;  See LICENSE.txt for full license text
-;  Author: Sam Kravitz
-; 
-;  FILE: ctsw.s
-;  DATE: August 10th, 2021
-;  DESCRIPTION: switch to a new process
+; maestro
+; License: GPLv2
+; See LICENSE.txt for full license text
+; Author: Sam Kravitz
+;
+; FILE: ctsw.s
+; DATE: August 10th, 2021
+; DESCRIPTION: switch to a new process
+; RESOURCE: http://samwho.dev/blog/context-switching-on-x86
 [bits 32]
 
 ; cdecl - void ctxsw(void *oldstk, void *newstk)
@@ -18,7 +19,7 @@ ctxsw:
 	push ebx
 	push esi
 	push edi
-	mov [eax], esp      		; save old stack
+	mov [eax], esp			; save old stack
 	mov esp, ecx			; move new stack into esp
 	pop edi				; restore callee-saved registers of new process
 	pop esi

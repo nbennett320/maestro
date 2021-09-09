@@ -9,7 +9,6 @@ VPATH = src/ lib/libc lib/msh/src
 C = \
 	ata.c \
 	clk.c \
-	dump.c \
 	fat.c \
 	idt.c \
 	init.c \
@@ -71,7 +70,7 @@ test:
 
 .PHONY: start
 start:
-	qemu-system-i386 -drive file=disk.img,format=raw,index=0,media=disk
+	qemu-system-i386 -m 4M -drive file=disk.img,format=raw,index=0,media=disk
 
 .PHONY: clean
 clean:
