@@ -54,5 +54,17 @@ void kbdhandler()
 	if (is_alpha(c) && PRESSED(LSHIFT | RSHIFT))
 		c = to_upper(c);
 
-	kprintf("%c", c);
+	if(
+		is_alpha(c) ||
+		is_numeric(c) ||
+		(c == ' ')
+	) istream_write(c, 1);
+
+	if(c == '\b') {
+		istream_handle_bksp();
+	}
+
+	kprintf("%c", istream_read());
+	// kprintf("%c", c);
+	// kprintf("%c", strlen(istream_read()));
 }

@@ -11,6 +11,7 @@ C = \
 	clk.c \
 	fat.c \
 	idt.c \
+	istream.c \
 	init.c \
 	intr.c \
 	io.c \
@@ -22,7 +23,7 @@ C = \
 	pq.c \
 	proc.c \
 	sched.c \
-	tty.c
+	tty.c 
 
 # asm sources
 ASM = \

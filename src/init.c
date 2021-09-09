@@ -9,6 +9,7 @@
  */
 #include <init.h>
 
+#include <istream.h>
 #include <clk.h>
 #include <fat.h>
 #include <idt.h>
@@ -24,6 +25,7 @@ void init()
 	clkinit();
 	// mminit();
 	fatinit();
+	istreaminit();
 
 	// set keyboard interrupt handler
 	svect(IRQ1, kbdhandler);

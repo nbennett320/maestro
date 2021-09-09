@@ -12,7 +12,12 @@
 
 #include <maestro.h>
 
+#define STDIO_H_GETCHAR_BUFFSIZE 1024
+
+u32 EOF;
+
 // ugh, I hate typedef...
+// yeah.. me too..
 typedef struct
 {
 	char name[32];
@@ -21,5 +26,10 @@ typedef struct
 	u32 position;
 	int fd;
 } FILE;
+
+/**
+ *  
+ */
+getchar(void);
 
 #endif // STDIO_H

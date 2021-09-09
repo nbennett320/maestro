@@ -11,7 +11,11 @@
 #ifndef MSH_H
 #define MSH_H
 
+#define MSH_INPUT_BUFFER_SIZE 1024
+
 // run the shell
 void run(void);
+
+char *read_line(void);
 
 #endif // MSH_H

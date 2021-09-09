@@ -13,6 +13,8 @@
 #include <proc.h>
 #include <kmalloc.h>
 
+#include <msh.h>
+
 #include "string.h"
 
 extern struct proc *curr;
@@ -27,6 +29,8 @@ void kmain()
 
 	// enable interrupts
 	asm("sti");
+
+	// run();
 
 	// become the null process
 	while (1)

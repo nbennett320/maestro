@@ -51,6 +51,7 @@ void putc(char c)
 			break;
 
 		case '\r':
+			// handle return
 			x = 0;
 			break;
 
