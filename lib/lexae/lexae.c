@@ -26,7 +26,7 @@ char **tokenize(char *str, char delim) {
   for(int i = 0; str[i] != NULL; i++) {
     for(int j = from; j < to; j++) {
       if((str[j] != NULL) && (str[j] == delim)) {
-        kprintf("found a delimiter %c at %d", delim, from);
+        kprintf("found a delimiter %c at %d\n", delim, from);
         // handle set token
         s16 len = to - from;
         char *token = kmalloc(sizeof(char) * len);
@@ -34,12 +34,12 @@ char **tokenize(char *str, char delim) {
           u16 n = from + k;
 
           if(n > to) {
-            kprintf("n in token too big, breaking");
+            kprintf("n in token too big, breaking\n");
             break;
           }
 
           if(str[n] == NULL) {
-            kprintf("str[n] was null, breaking");
+            kprintf("str[n] was null, breaking\n");
             return NULL;
           }
 
@@ -53,4 +53,29 @@ char **tokenize(char *str, char delim) {
   }
 
   return token_arr;
+}
+
+s16 count_tokens(char *str, char delim) {
+  u16 n = 0;
+  s16 count = 0;
+
+  while(str[n] != NULL) {
+    if(str[n] == delim) count++;  
+    n++;
+  }
+
+  return count;
+}
+
+// list tokens for debugging
+void print_tokens(char **token_arr, s16 n_tokens) {
+  for(int i = 0; i < n_tokens; i++) {
+    char *token = token_arr[i];
+    s16 len = strlen(token);
+    kprintf("token %d: ",i);
+    for(int j = 0; j < len; j++) {
+      kprintf("%c", token[i+1]);
+    }
+    kprintf("\n");
+  }
 }

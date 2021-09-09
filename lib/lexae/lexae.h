@@ -22,5 +22,7 @@
  * @param delim char to use as delimiter
  */
 char **tokenize(char *, char);
+s16 count_tokens(char *, char);
+void print_tokens(char **, s16);
 
 #endif // LEXAE_H

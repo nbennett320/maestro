@@ -12,6 +12,7 @@
 #include <kmalloc.h>
 #include <kout.h>
 #include <string.h>
+#include <lexae.h>
 
 // initialize stream to null
 extern char *istream = NULL;
@@ -27,6 +28,7 @@ void istream_write(char ch_stream, u32 size) {
   istream[stream_index] = ch_stream;
   kprintf("word is: ");
   print_stream();
+  char **tokens = tokenize(istream, ' ');
 }
 
 char *istream_read() {
