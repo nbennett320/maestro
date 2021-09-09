@@ -134,37 +134,59 @@ size_t strlen(const char *str)
 // O(n) basic find for string, return index of char
 int charfind(char *str, char ch, int start) {
 	if(!str) return NULL;
-	if(strlen(str) > start) return NULL;
+	if(strlen(str) < start) return NULL;
 	if(start < 0) return NULL;
 
 	for(int i = start; i < strlen(str); i++) {
 		if((str[i] != NULL) && (str[i] == ch)) {
+			kprintf("ch found at %d\n",i);
 			return i;
 		}
 
 		if(str[i] == NULL) {
+			kprintf("str[%d] null\n",i);
 			return NULL;
 		}
 	}
+	kprintf("not found\n");
 	return -1;
 }
 
 // find substring with from, to
 char *substr(char *str, int from, int to) {
-	if(!str) return NULL;
-	if(from < 0) return NULL;
-	if(from > to) return NULL;
-	if(to < 0) return NULL;
-	if((to - from) <= 0) return NULL;
+	if(!str) {
+		kprintf("null string\n");
+		return NULL;
+	}
+	if(from < 0) {
+		kprintf("from < 0\n");
+		return NULL;
+	}
+	if(from > to) {
+		kprintf("from > to\n");
+		return NULL;
+	}
+	if(to < 0) {
+		kprintf("to < 0\n");
+		return NULL;
+	}
+	if((to - from) <= 0) {
+		kprintf("to - from < 0\n");
+		return NULL;
+	}
 
 	char *substr = kmalloc(sizeof(char) * (to - from));
 	u16 stri = 0;
 	for(int i = from; i < to; i++) {
-		if(!str[stri]) return NULL;
+		if(!str[stri]) {
+			kprintf("str stri is null\n");
+			return NULL;
+		}
 
 		substr[stri] = str[i];
 		stri++;
 	}
+	substr[stri] = NULL;
 
 	return substr;
 }
