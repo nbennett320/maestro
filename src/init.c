@@ -11,11 +11,13 @@
 
 #include <istream.h>
 #include <clk.h>
-#include <fat.h>
+#include <ext2.h>
+#include <fs.h>
 #include <idt.h>
 #include <intr.h>
 #include <kbd.h>
 #include <mm.h>
+
 
 // initializes IDT, interrupts, and the clock
 void init()
@@ -25,8 +27,8 @@ void init()
 	clkinit();
 	istreaminit();
 	// mminit();
-	fatinit();
-
+	
+	mount();
 	// set keyboard interrupt handler
 	svect(IRQ1, kbdhandler);
 }

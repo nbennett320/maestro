@@ -1,15 +1,18 @@
 CC = gcc
+CXX = g++
 AS = nasm
 CFLAGS = -std=gnu99 -march=i686 -m32 -fno-stack-protector -no-pie -ffreestanding -nostdlib -Wall -Wextra $(INCLUDE)
-LDFLAGS =
-INCLUDE = -I include -I lib/libc -I lib/msh/include -I lib/lexae
-VPATH = src/ lib/libc lib/msh/src lib/lexae
+CXXFLAGS = -std=c++17 -m32 -fno-pie -fno-stack-protector -fno-exceptions -fno-rtti -ffreestanding -nostdlib -O2 -Wall -Wextra $(INCLUDE)
+LDFLAGS = -L lib/libc -l:libc.a -L lib/mxx -l:mxx.a
+INCLUDE = -I include -I lib/libc -I lib/mxx
+VPATH = src/ lib/libc
 
 # C sources
 C = \
 	ata.c \
 	clk.c \
-	fat.c \
+	ext2.c \
+	fs.c \
 	idt.c \
 	istream.c \
 	init.c \
@@ -25,6 +28,10 @@ C = \
 	sched.c \
 	tty.c 
 
+# C++ sources
+CPP = \
+	plus.cpp \
+
 # asm sources
 ASM = \
 	boot.s \
@@ -34,14 +41,7 @@ ASM = \
 	isr.s \
 	pdsw.s \
 
-# lib sources
-LIB = \
-	stdlib.c \
-	string.c \
-	msh.c\
-	lexae.c\
-
-OBJ = $(addprefix bin/, $(C:.c=.o) $(ASM:.s=.o) $(LIB:.c=.o))
+OBJ = $(addprefix bin/, $(C:.c=.o) $(CPP:.cpp=.o) $(ASM:.s=.o))
 
 all: libs maestro.bin img
 
@@ -50,6 +50,9 @@ maestro.bin: $(OBJ)
 
 bin/%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
+	
+bin/%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 bin/%.o: %.s
 	$(AS) -f elf32 $< -o $@
@@ -58,8 +61,8 @@ libs:
 	$(MAKE) -C lib
 
 img: maestro.bin
-	mkdir -p mnt
-	sudo mount -o loop,offset=1048576 disk.img mnt
+	mkdir mnt
+	sudo mount -t ext2 -o loop,offset=1048576 disk.img mnt
 	sudo cp maestro.bin mnt/boot
 	sudo cp grub.cfg mnt/boot/grub
 	sync
@@ -72,7 +75,7 @@ test:
 
 .PHONY: start
 start:
-	qemu-system-i386 -m 4M -drive file=disk.img,format=raw,index=0,media=disk
+	qemu-system-i386 -m 16M -drive file=disk.img,format=raw,index=0,media=disk
 
 .PHONY: clean
 clean:

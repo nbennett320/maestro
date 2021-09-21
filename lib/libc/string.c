@@ -10,6 +10,20 @@
 
 #include "string.h"
 
+/**
+ * returns first index of c in str or -1 if c does not appear
+ */
+int indexOf(const char *str, char c)
+{
+	for (int i = 0; i < strlen(str); ++i)
+	{
+		if (str[i] == c)
+			return i;
+	}
+
+	return -1;
+}
+
 // compares n bytes of s1 with s2
 // returns:
 //   <0 if s1 < s2
@@ -119,6 +133,11 @@ char *strcpy(char *dest, const char *src)
 	memcpy(dest, src, len);
 	dest[len] = '\0';
 	return dest;
+}
+
+int strcmp(const char *a, const char *b)
+{
+	return memcmp(a, b, strlen(a));
 }
 
 // compute the length of a null-terminated string
