@@ -25,7 +25,6 @@ char **tokenize(char *str, char delim) {
 
   int from = 0, to = strlen(str), len = to - from, tok_i = 0;
   while(remaining_tokens) {
-    tok_i = n_tokens - remaining_tokens;
     to = charfind(str, delim, from);
     char *token = kmalloc(sizeof(char) * len);
     token = substr(str, from, to);
@@ -38,6 +37,7 @@ char **tokenize(char *str, char delim) {
     from = to;
     token_arr[tok_i] = token;
     remaining_tokens--;
+    tok_i++;
   }
   return token_arr;
 }

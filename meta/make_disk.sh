@@ -11,23 +11,29 @@
 # NOTE: Requires root access to mount drive to /dev/loopX
 # REOURCE: https://thestarman.pcministry.com/asm/mbr/PartTables.htm
 
-dd if=/dev/zero of=disk.img bs=512 count=1048576
-sudo losetup /dev/loop0 disk.img
-sudo fdisk /dev/loop0 << EOF > /dev/null
-o
-n
-p
-1
-2048
+# get name of directory that script is in
+SCRIPT_DIR=`dirname "$0"`
 
-w
-EOF
-sudo losetup -o 1048576 /dev/loop1 /dev/loop0
-sudo mkfs.ext2 -I 128 -b 1024 -q /dev/loop1
+# dd if=/dev/zero of=disk.img bs=512 count=1048576
+# sudo losetup /dev/loop0 disk.img
+# sudo sfdisk /dev/loop0 < $SCRIPT_DIR/fat32.sfdisk
+sudo losetup -o 1048576 /dev/loop69 /dev/loop68
+sudo mkfs.fat -F 32 /dev/loop69
 mkdir tmp
-sudo mount -t ext2 /dev/loop1 ./tmp
-sudo grub-install --target=i386-pc --boot-directory=./tmp/boot --modules="biosdisk ext2 part_msdos" /dev/loop0
+sudo mount /dev/loop69 ./tmp
+sudo grub-install --target=i386-pc --boot-directory=./tmp/boot --modules="biosdisk fat part_msdos" /dev/loop68
 sudo umount ./tmp
-sudo losetup -d /dev/loop1
-sudo losetup -d /dev/loop0
+sudo losetup -d /dev/loop69
+sudo losetup -d /dev/loop68
 rmdir ./tmp
+
+### create a FAT12 partition using mtools ###
+# dd if=/dev/zero of=disk.img count=2048 bs=512
+# echo "drive c: file=\"disk.img\" partition=1" > ~/.mtoolsrc
+# mpartition -I c:
+# mpartition -c -b 63 -l 1985 c:
+# mpartition -a c:
+# mformat -R 63 c:
+# sudo grub-install --target=i386-pc --modules="biosdisk fat part_msdos" disk.img
+# mcopy grub.cfg c:/boot/grub
+# mcopy maestro.bin c:/boot

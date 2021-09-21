@@ -26,10 +26,11 @@ mstring::mstring(const char *str)
 
 mstring::mstring(const mstring &other)
 {
-    len = strlen(other.c_str());
+    const char *cstr = other.data;
+    len = strlen(cstr);
     cap = round(len, 8);
     data = new char[cap];
-    strcpy(data, other.c_str());
+    strcpy(data, other.data);
 }
 
 mstring::~mstring()

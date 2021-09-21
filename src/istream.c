@@ -12,7 +12,7 @@
 #include <kmalloc.h>
 #include <kout.h>
 #include <string.h>
-#include <lexae.h>
+// #include <lexae.h>
 
 // initialize stream to null
 extern char *istream = NULL;

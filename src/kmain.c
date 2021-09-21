@@ -13,9 +13,11 @@
 #include <proc.h>
 #include <kmalloc.h>
 
-#include <msh.h>
+// #include <msh.h>
 
 #include "string.h"
+
+#include "msl.h"
 
 extern struct proc *curr;
 extern struct proc nullproc;
@@ -29,6 +31,8 @@ void kmain()
 
 	// enable interrupts
 	asm("sti");
+
+	int r = test();
 
 	// run();
 
